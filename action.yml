@@ -25,14 +25,17 @@ runs:
         node-version: '14'
 
     - name: Install spectaql
+      shell: bash
       run: |
         npm install -g spectaql
 
     - name: Run spectaql
+      shell: bash
       run: |
         npx spectaql "${{ inputs.spectaql-config-path }}" --target-dir "${{ inputs.temp-output-dir }}" ${{ inputs.spectaql-args }}
 
     - name: Overwrite docs
+      shell: bash
       run: |
         rm -rf "${{ inputs.output-dir }}"
         mv "${{ inptus.temp-output-dir }}" "${{ inputs.output-dir }}"
