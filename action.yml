@@ -52,7 +52,7 @@ runs:
       run: |
         echo "*** Overwrite docs ***"
         rm -rf "${{ inputs.output-dir }}"
-        mkdir -p "$(dirname ${{ inputs.output-dir }}"
+        mkdir -p "$(dirname ${{ inputs.output-dir }})"
         mv "${{ inputs.temp-output-dir }}" "${{ inputs.output-dir }}"
 
     - name: Show result
