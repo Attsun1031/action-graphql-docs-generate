@@ -36,8 +36,9 @@ runs:
         rm -rf "${OUTPUT_DIR}"
         mv "${TEMP_OUTPUT_DIR}" "${OUTPUT_DIR}"
 
-    - name: Cleanup temporary dir
-      if: ${{ always() }}
-      run: |
-        rm -rf "${TEMP_OUTPUT_DIR}"
+    # FIXME: Currently, we cannot use if statement in composite action.
+    #- name: Cleanup temporary dir
+    #  if: ${{ always() }}
+    #  run: |
+    #    rm -rf "${TEMP_OUTPUT_DIR}"
 
