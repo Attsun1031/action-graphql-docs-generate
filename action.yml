@@ -4,12 +4,19 @@ inputs:
   spectaql-config-path:
     description: 'Path of the spectaql configuration file.'
     required: true
+  output-dir:
+    description: 'Outpu directory of docs.'
+    required: true
   spectaql-args:
-    description: 'Arguments of the spectaql command. (ex: "--target-dir path/to/output --app-dir path/to/app"'
+    description: 'Arguments of the spectaql command. (ex: "--app-dir path/to/app")'
     required: false
     default: ''
+
 runs:
   using: 'composite'
+  env:
+    OUTPUT_DIR: ${{ inputs.output-dir }}
+    TEMP_OUTPUT_DIR: './temp-output-graphql-api-docs-generate'
   steps:
     - name: Setup Node
       uses: actions/setup-node@v2
@@ -22,5 +29,15 @@ runs:
 
     - name: Run spectaql
       run: |
-        npx spectaql ${{ inputs.spectaql-config-path }} ${{ inputs.spectaql-args }}
+        npx spectaql "${{ inputs.spectaql-config-path }}" --target-dir "${TEMP_OUTPUT_DIR}"  ${{ inputs.spectaql-args }}
+
+    - name: Overwrite docs
+      run: |
+        rm -rf "${OUTPUT_DIR}"
+        mv "${TEMP_OUTPUT_DIR}" "${OUTPUT_DIR}"
+
+    - name: Cleanup temporary dir
+      if: ${{ always() }}
+      run: |
+        rm -rf "${TEMP_OUTPUT_DIR}"
 
