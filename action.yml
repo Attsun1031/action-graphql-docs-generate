@@ -27,22 +27,32 @@ runs:
     - name: Install spectaql
       shell: bash
       run: |
+        echo "*** Install spectaql ***"
         npm install -g spectaql
 
     - name: Setup temp dir
       shell: bash
       run: |
+        echo "*** Setup temp dir ***"
         rm -rf "${{ inputs.temp-output-dir }}"
         mkdir "${{ inputs.temp-output-dir }}"
 
     - name: Run spectaql
       shell: bash
       run: |
+        echo "*** Run spectaql ***"
         npx spectaql "${{ inputs.spectaql-config-path }}" --target-dir "${{ inputs.temp-output-dir }}" ${{ inputs.spectaql-args }}
 
     - name: Overwrite docs
       shell: bash
       run: |
+        echo "*** Overwrite docs ***"
         rm -rf "${{ inputs.output-dir }}"
         mv "${{ inputs.temp-output-dir }}" "${{ inputs.output-dir }}"
+
+    - name: Show result
+      shell: bash
+      run: |
+        echo "*** Show result ***"
+        ls -lR
 
