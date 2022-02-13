@@ -1,0 +1,26 @@
+name: 'GraphQL API docs generate'
+description: 'Generate GraphQL API documents.'
+inputs:
+  spectaql-config-path:
+    description: 'Path of the spectaql configuration file.'
+    required: true
+  spectaql-args:
+    description: 'Arguments of the spectaql command. (ex: "--target-dir path/to/output --app-dir path/to/app"'
+    required: false
+    default: ''
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    - name: Install spectaql
+      run: |
+        npm install -g spectaql
+
+    - name: Run spectaql
+      run: |
+        npx spectaql ${{ inputs.spectaql-config-path }} ${{ inputs.spectaql-args }}
+
