@@ -31,26 +31,26 @@ runs:
     - name: Install spectaql
       shell: bash
       run: |
-        echo "\033[0;31m*** Install spectaql ***\033[0m"
+        echo "*** Install spectaql ***"
         npm install -g "spectaql@${{ inputs.spectaql-version }}"
 
     - name: Setup temp dir
       shell: bash
       run: |
-        echo "\033[0;31m*** Setup temp dir ***\033[0m"
+        echo "*** Setup temp dir ***"
         rm -rf "${{ inputs.temp-output-dir }}"
         mkdir "${{ inputs.temp-output-dir }}"
 
     - name: Run spectaql
       shell: bash
       run: |
-        echo "\033[0;31m*** Run spectaql ***\033[0m"
+        echo "*** Run spectaql ***"
         npx spectaql "${{ inputs.spectaql-config-path }}" --target-dir "${{ inputs.temp-output-dir }}" ${{ inputs.spectaql-args }}
 
     - name: Overwrite docs
       shell: bash
       run: |
-        echo "\033[0;31m*** Overwrite docs ***\033[0m"
+        echo "*** Overwrite docs ***"
         rm -rf "${{ inputs.output-dir }}"
         mkdir -p "$(dirname ${{ inputs.output-dir }})"
         mv "${{ inputs.temp-output-dir }}" "${{ inputs.output-dir }}"
