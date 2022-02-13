@@ -15,6 +15,10 @@ inputs:
     description: 'Arguments of the spectaql command. (ex: "--app-dir path/to/app")'
     required: false
     default: ''
+  spectaql-version:
+    description: 'The version of spectaql'
+    required: false
+    default: '~0.12.0'
 
 runs:
   using: 'composite'
@@ -28,7 +32,7 @@ runs:
       shell: bash
       run: |
         echo "*** Install spectaql ***"
-        npm install -g spectaql
+        npm install -g "spectaql@${{ inputs.spectaql-version }}"
 
     - name: Setup temp dir
       shell: bash
@@ -48,6 +52,7 @@ runs:
       run: |
         echo "*** Overwrite docs ***"
         rm -rf "${{ inputs.output-dir }}"
+        mkdir -p "${{ inputs.output-dir }}"
         mv "${{ inputs.temp-output-dir }}" "${{ inputs.output-dir }}"
 
     - name: Show result
