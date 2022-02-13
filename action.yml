@@ -55,9 +55,8 @@ runs:
         mkdir -p "$(dirname ${{ inputs.output-dir }})"
         mv "${{ inputs.temp-output-dir }}" "${{ inputs.output-dir }}"
 
-    - name: Show result
-      shell: bash
-      run: |
-        echo "*** Show result ***"
-        ls -lR
+    # SEE https://github.com/stefanzweifel/git-auto-commit-action
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: "Automatically generate GraphQL docs"
 
