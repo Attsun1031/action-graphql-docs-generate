@@ -29,6 +29,12 @@ runs:
       run: |
         npm install -g spectaql
 
+    - name: Setup temp dir
+      shell: bash
+      run: |
+        rm -rf "${{ inputs.temp-output-dir }}"
+        mkdir "${{ inputs.temp-output-dir }}"
+
     - name: Run spectaql
       shell: bash
       run: |
@@ -38,5 +44,5 @@ runs:
       shell: bash
       run: |
         rm -rf "${{ inputs.output-dir }}"
-        mv "${{ inptus.temp-output-dir }}" "${{ inputs.output-dir }}"
+        mv "${{ inputs.temp-output-dir }}" "${{ inputs.output-dir }}"
 
