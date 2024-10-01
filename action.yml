@@ -18,15 +18,19 @@ inputs:
   spectaql-version:
     description: 'The version of spectaql'
     required: false
-    default: '~2.0.0'
+    default: '~3.0.0'
+  node-version:
+    description: 'The version of nodejs'
+    required: false
+    default: '20'
 
 runs:
   using: 'composite'
   steps:
     - name: Setup Node
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '16'
+        node-version: "${{ inputs.node-version }}"
 
     - name: Install spectaql
       shell: bash
